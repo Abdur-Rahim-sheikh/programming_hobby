@@ -40,8 +40,9 @@ void dbg_out(Head H, Tail... T) {
 #define check(val,pos) (val&(1<<pos))
 #define all(n) n.begin(),n.end()
 //first four adjacent,second four corner
-//int row[8]={0,-1,0,1,1,-1,-1,1};
-//int col[8]={-1,0,1,0,-1,-1,1,1};
+// first four also work for 90-degree clock-wise rotation
+//int row[8]={0,1,0,-1,1,-1,-1,1};
+//int col[8]={1,0,-1,0,-1,-1,1,1};
 //using namespace __gnu_pbds;
 //typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
 //replace less<int> to less_equal<int> to take duplicate values

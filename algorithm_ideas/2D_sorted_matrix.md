@@ -1,6 +1,6 @@
 # given a 2D sorted matrix need to find the the value efficiently.
 leet_code problem (details)[https://leetcode.com/problems/search-a-2d-matrix-ii/]
-below code has O(max(m,n)) complexity.
+below code has O(m+n) complexity.
 ```
 class Solution {
 public:

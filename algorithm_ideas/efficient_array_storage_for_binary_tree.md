@@ -40,10 +40,10 @@ This allows you to create the tree, given the serialized version in one pass, as
 
 100 (10 . .) (200 (150 . .) (300 . .))
 To create the inorder traversal, you use a stack and push when you see a node and pop (onto a list) when you see a null. The resulting list is the inorder traversal (a detailed explanation for this can be found here: C++/C/Java: Anagrams - from original string to target;).
-(stack_overflow)[https://stackoverflow.com/a/2676849/17957276]
+[stack_overflow](https://stackoverflow.com/a/2676849/17957276)
 
 ## I used this idea to solve (achive memory limit of) a leetcode problem which is another fun problem.
 
-(serialize-and-deserialize binary tree)[https://leetcode.com/problems/serialize-and-deserialize-binary-tree]
+[serialize-and-deserialize binary tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree)
 
-(my-solution)[https://leetcode.com/submissions/detail/789835962/]
+[my-solution](https://leetcode.com/submissions/detail/789835962/)

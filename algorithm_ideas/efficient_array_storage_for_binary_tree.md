@@ -18,7 +18,7 @@ In the pre/post + inorder you will end up using 16n bytes= 128*n bits.
 So you save a space of 62*n bits over this pre/post + inorder method.
 
 Consider the tree
-``
+```
 
        100
       /   \
@@ -30,7 +30,7 @@ Consider the tree
           / \    / \
          .   .   .  .
 where the '.' are the null nodes.
-``
+```
 
 You will serialize it as 100 10 . . 200 150 . . 300 . .
 
@@ -47,3 +47,81 @@ To create the inorder traversal, you use a stack and push when you see a node an
 [serialize-and-deserialize binary tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree)
 
 [my-solution](https://leetcode.com/submissions/detail/789835962/)
+
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+// stackoverflow
+private:
+string int_to_hex(int i){
+  stringstream stream;
+// to write upto 1000 we need 3 bit and left bit for sign
+// so 1000 = 03e8
+    stream << setfill ('0') << setw(4) << hex << abs(i);
+    string tem = stream.str();
+    if(i<0) tem[0] = '1';
+    return tem;
+}
+int hex_to_int(string hex){
+    int val = 0,tem;
+    for(int i=1;i<4;i++){
+        tem = hex[i]-'0';
+        if(hex[i]>='a' and hex[i]<='f'){
+            tem = hex[i]-'a'+10;
+        }
+        val = val*16+tem;
+    }
+    // cout<<hex<<' '<<val<<endl;
+    return hex[0]=='0'?val:-val;
+}
+    
+TreeNode* makeTree(string &data,int &idx){
+    idx++;
+    if(data[idx*4]=='9') return nullptr;
+    
+    TreeNode* node = new TreeNode(hex_to_int(data.substr(idx*4,4)));
+    
+    node->left = makeTree(data,idx);
+    node->right = makeTree(data,idx);
+    return node;
+}
+public:
+//     if we push 9 to denote null
+    void preOrderTraverse(TreeNode* node,string &ans){
+        if(node==nullptr){
+            ans+="9999";
+            return;
+        }
+        ans += int_to_hex(node->val);
+        
+        preOrderTraverse(node->left,ans);
+        preOrderTraverse(node->right,ans);
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string ans;
+        preOrderTraverse(root,ans);
+        // cout<<ans;
+        return ans;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+//         data coming in preorder this representation saves lots of memory
+        int lower = -1;
+        return makeTree(data,lower);
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
+```
